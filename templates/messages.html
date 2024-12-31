@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messages</title>
+    <link rel="stylesheet" href="/static/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
+</head>
+
+<body>
+    <div class="card">
+        <h1 class="mb-8">{{ status }}</h1>
+        <ul class="message-list">
+            {% for message in messages %}
+            <li class="message-item" onclick="openModal(this)" data-message-id="{{ loop.index }}">
+                {{ message.message }}
+                <div class="message-stats">
+                    <span class="likes">0</span>
+                    <span class="hearts">0</span>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+        <form action="{{ url_for('dashboard', short_id=short_id) }}">
+            <button type="submit" class="btn">Back to Dashboard</button>
+        </form>
+    </div>
+
+    <!-- Modal -->
+    <div id="messageModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div id="modalMessage" class="modal-message"></div>
+            <div class="modal-actions">
+                <button class="action-btn like-btn" onclick="handleLike()">
+                    <i class="fas fa-thumbs-up"></i>
+                    <span class="like-count">0</span>
+                </button>
+                <button class="action-btn heart-btn" onclick="handleHeart()">
+                    <i class="fas fa-heart"></i>
+                    <span class="heart-count">0</span>
+                </button>
+                <button class="action-btn download-btn" onclick="downloadAsImage()">
+                    <i class="fas fa-download"></i>
+                    Download
+                </button>
+            </div>
+        </div>
+    </div>
+    <footer class="minimal-footer">
+        <p>© 2024 Anonymous Messages. All rights reserved. Made with ❤️ by <a
+                href="https://wa.me/09039549262?text=i%20love%20your%20work%20😍" target="_blank"
+                class="author-link">DB0SZ</a></p>
+    </footer>
+</body>
+<script src="/static/modal.js"></script>
+</html>

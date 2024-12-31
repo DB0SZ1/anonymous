@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="/static/main.css">
+</head>
+
+<body>
+    <div class="notification" id="copyNotification">
+        <span>✨ Link copied!</span>
+    </div>
+    <div class="card slide-in">
+        <h1 class="mb-8">Welcome, {{ name }}! 👋</h1>
+        <div class="message-item mb-8">
+            <p class="mb-4">Your unique link:</p>
+            <div class="flex items-center gap-4">
+                <a href="{{ user_link }}">{{ user_link }}</a>
+             <button onclick="copyLink('{{ user_link }}')" class="btn btn-secondary">Copy</button>
+            </div>
+        </div>
+        <form action="{{ url_for('view_messages', short_id=short_id) }}">
+            <button type="submit" class="btn">View Messages</button>
+        </form>
+    </div>
+    <footer class="minimal-footer">
+        <p>© 2024 Anonymous Messages. All rights reserved. Made with ❤️ by <a
+                href="https://wa.me/09039549262?text=i%20love%20your%20work%20😍" target="_blank"
+                class="author-link">DB0SZ</a></p>
+    </footer>
+    <script>
+        function copyLink(link) {
+            navigator.clipboard.writeText(link);
+            const notification = document.getElementById('copyNotification');
+            notification.classList.add('show');
+            setTimeout(() => notification.classList.remove('show'), 2000);
+        }
+    </script>
+</body>
+
+</html>

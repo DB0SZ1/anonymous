@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Send a Message</title>
+    <link rel="stylesheet" href="/static/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="notification" id="notification">
+        <i class="fas fa-check-circle"></i>
+        <p>Message sent successfully!</p>
+    </div>
+
+    <div class="card fade-in">
+        <h1 class="text-center mb-8">Send an Anonymous Message to {{ name }}</h1>
+        <form action="/u/{{ short_id }}" method="POST" class="space-y-4" id="messageForm">
+            <textarea name="message" placeholder="Write your message..." required></textarea>
+            <button type="submit" class="btn">Send Message</button>
+        </form>
+        <a href="/" class="create-link">Get your own anonymous link →</a>
+    </div>
+
+    <script>
+        document.getElementById('messageForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const notification = document.getElementById('notification');
+            notification.classList.add('show');
+            setTimeout(() => {
+                notification.classList.remove('show');
+                this.submit();
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
