@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 from werkzeug.security import generate_password_hash, check_password_hash
+from flask import request
 import uuid
 
 app = Flask(__name__)
@@ -36,7 +37,7 @@ def home():
 @app.route('/dashboard/<short_id>')
 def dashboard(short_id):
     name = user_links.get(short_id, "User")
-    user_link = f"http://127.0.0.1:5000/u/{short_id}"
+    user_link = f"{request.host_url}u/{short_id}"
     return render_template('dashboard.html', user_link=user_link, short_id=short_id, name=name)
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -79,4 +80,4 @@ def view_messages(short_id):
         return render_template('messages.html', messages=user_messages, status="No new messages.", short_id=short_id)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0', port=5000)
